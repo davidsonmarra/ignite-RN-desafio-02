@@ -75,14 +75,44 @@ export function TaskItem({
           />
         </TouchableOpacity>
       </View>
+      <View style={styles.container}>
+        {
+          isEditing ? 
+          <TouchableOpacity
+            onPress={handleCancelEditing}
+          >
+            <Icon 
+              name="x"
+              size={22}
+              color="#B2B2B2"
+            />
+          </TouchableOpacity> :
+          <TouchableOpacity
+            onPress={handleStartEditing}
+          >
+            <Icon 
+              name="edit-3"
+              size={22}
+              color="#B2B2B2"
+            />
+          </TouchableOpacity>
+        }
+        <View style={ styles.divider }>
 
-      <TouchableOpacity
-        testID={`trash-${index}`}
-        style={{ paddingHorizontal: 24 }}
-        onPress={() => removeTask(item.id)}
-      >
-        <Image source={trashIcon} />
-      </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          disabled={isEditing}
+          testID={`trash-${index}`}
+          style={{ 
+            paddingRight: 24,
+            paddingLeft: 12,
+            opacity: isEditing ? 0.2 : 1
+          }}
+          onPress={() => removeTask(item.id)}
+        >
+          <Image source={trashIcon} />
+        </TouchableOpacity>
+      </View>
     </>
   )
 }
@@ -124,5 +154,14 @@ const styles = StyleSheet.create({
     color: '#1DB863',
     textDecorationLine: 'line-through',
     fontFamily: 'Inter-Medium'
+  },
+  container: {
+    flexDirection: 'row'
+  },
+  divider: {
+    width: 1,
+    height: 24,
+    backgroundColor: "rgba(196, 196, 196, 0.24)",
+    marginLeft: 12
   }
 })
